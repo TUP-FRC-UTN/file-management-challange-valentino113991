@@ -1,1 +1,24 @@
-add code here!!
+<div class="container mt-5">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Dueños</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let f of files">
+                <th scope="row">{{f.id}}</th>
+                <td>{{f.name}}</td>
+                <td>{{f.creation | date: 'shortDate'}}</td>
+                <div class="td-duenios">
+                    <td class="imagen" *ngFor="let o of f.owners"><img [src]="o.avatarUrl" alt="o.name"></td>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

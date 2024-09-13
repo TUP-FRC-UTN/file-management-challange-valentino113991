@@ -1,0 +1,10 @@
+.td-duenios{
+    display: flex;
+    gap: 6px;
+}
+
+img{
+    width: 28px;
+    height: 28px;
+    border-radius: 30px;
+}
