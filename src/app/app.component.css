@@ -3,8 +3,19 @@
     gap: 6px;
 }
 
-img{
+.img-owner{
     width: 28px;
     height: 28px;
     border-radius: 30px;
+}
+
+.img-logo{
+    width: 28px;
+    height: 28px;
+}
+
+.circulo{
+    background-color: rgb(159, 197, 255);
+    padding-right: 6px;
+    border-radius: 21px;
 }

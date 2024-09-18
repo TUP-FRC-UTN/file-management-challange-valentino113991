@@ -1,6 +1,20 @@
-<div class="container mt-5">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a href="index.html" class="navbar-brand">Archivos</a>
+        <div class="d-flex">
+            <button (click)="mostrar()" class="btn btn-outline-primary me-2" type="button">Nuevo</button>
+            <button (click)="borrar()" class="btn btn-outline-primary" type="button">Borrar</button>
+        </div>
+    </div>
+</nav>
 
-    <table class="table">
+<div class="container mt-4">
+
+    @if(mostrarForm){
+    <app-formulario [duenios]="pasarDuenios()" (formEmitido)="agregarArchivo($event)"></app-formulario>
+    }
+
+    <table class="table mt-4">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -11,14 +25,47 @@
         </thead>
         <tbody>
             <tr *ngFor="let f of files">
-                <th scope="row">{{f.id}}</th>
-                <td>{{f.name}}</td>
+                <th scope="row">
+                    <input type="checkbox" name="checkbox" (click)="seleccionar(f.id)">
+                </th>
+                <td>
+                    @if (f.type == 0){
+                    <img [attr.title]="f.name" class="img-logo"
+                        src="https://images.vexels.com/content/276662/preview/blue-folder-rounded-9529f1.png"
+                        alt="carpeta">
+                    <span [attr.title]="f.name">{{achicarNombre(f.name)}}</span>
+                    } @else {
+                    <img [attr.title]="f.name" class="img-logo"
+                        src="https://cdn-icons-png.flaticon.com/512/5073/5073677.png" alt="archivo">
+                    <span [attr.title]="f.name">{{achicarNombre(f.name)}}</span>
+                    }
+
+                </td>
                 <td>{{f.creation | date: 'shortDate'}}</td>
-                <div class="td-duenios">
-                    <td class="imagen" *ngFor="let o of f.owners"><img [src]="o.avatarUrl" alt="o.name"></td>
-                </div>
+
+                <td>
+                    @if(f.owners.length > 3){
+                    <span *ngFor="let i of numbers; let index = index">
+                        @if(i == 2){
+                        <img class="img-owner" [src]="f.owners[i].avatarUrl" alt="o.name">
+                        <span class="circulo"> +{{ f.owners.length - 3 }} </span>
+                        }
+                        @else{
+                        <img class="img-owner" [src]="f.owners[i].avatarUrl" alt="o.name">
+                        }
+                    </span>
+                    }
+                    @else {
+                    <span *ngFor="let o of f.owners">
+
+                        <img class="img-owner" [src]="o.avatarUrl" alt="o.name">
+
+                    </span>
+                    }
+
+                </td>
+
             </tr>
         </tbody>
     </table>
-
 </div>

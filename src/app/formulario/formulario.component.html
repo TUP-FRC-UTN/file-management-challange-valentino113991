@@ -1,0 +1,59 @@
+<form #form="ngForm" class="form-group" (ngSubmit)="enviarFormulario(form)">
+    <div class="row">
+        <h3>Crear Archivo</h3>
+        <div class="mb-3 mt-2">
+            <label for="idNombre">Nombre</label>
+            <input name="name" [(ngModel)]="file.name" type="text" class="form-control" id="idNombre" required
+                minlength="3" #name="ngModel">
+            @if (name.invalid && (name.dirty || name.touched)) {
+            @if (name.getError("minlength")) {
+            <div class="error">El nombre debe tener al menos 3 caracteres</div>
+            }
+            @if (name.getError("required")) {
+            <div class="error">Ingrese un nombre por favor</div>
+            }
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3">
+            <label for="idFecha">Fecha</label>
+            <input name="creation" [(ngModel)]="file.creation" type="date" class="form-control" id="idFecha" required
+                #fecha="ngModel">
+            @if(!validateFecha(file.creation) && (fecha.dirty || fecha.touched)){
+            <div class="error">La fecha debe ser de al menos un año atrás</div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3">
+            <label for="idTipoArchivo">Tipo de Archivo</label>
+            <select [(ngModel)]="file.type" name="tipoArchivo" id="idTipoArchivo" class="form-control form-select"
+                required #tipo="ngModel">
+                <option [ngValue]="fileTypes[0]">FILE</option>
+                <option [ngValue]="fileTypes[1]">FOLDER</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="mb-3 col-md-10">
+            <label for="idDuenio">Dueños</label>
+            <select [(ngModel)]="duenioTemporal" name="duenio" id="idDuenio" class="form-control form-select">
+                <option *ngFor="let d of duenios" [ngValue]="d">{{d.name}}</option>
+            </select>
+        </div>
+        <div class="mt-4 col-md-2">
+            <div class="btn-mas">
+                <button type="button" (click)="agregarDuenio()" class="btn btn-primary">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-submit">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Crear</button>
+    </div>
+</form>
